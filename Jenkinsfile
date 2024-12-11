@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_TOKEN = credentials('Irene Martínez')
+        GITHUB_TOKEN = credentials('github-token')
     }
 
     stages {
@@ -45,7 +45,7 @@ def updateGitHubStatus(String state, String description) {
     def context = "continuous-integration/jenkins"
     def commitSha = env.GIT_COMMIT
 
-    withCredentials([usernamePassword(credentialsId: 'Irene Martínez', usernameVariable: 'irenemrtinez', passwordVariable: 'GITHUB_TOKEN')]) {
+    withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'irenemrtinez', passwordVariable: 'GITHUB_TOKEN')]) {
         def apiUrl = "https://github.com/irenemrtinez/ejemplo-gradle-bueno/statuses/${commitSha}"
         def data = """
         {
